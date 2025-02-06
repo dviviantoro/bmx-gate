@@ -48,8 +48,6 @@ void setup() {
 void loop() {
     unsigned long currentMillis = millis();
 
-    
-
     // listening if I am slave
     if (currentMillis - previousMillis >= echoInterval) {
         while (Serial485.available() > 0) {
