@@ -21,7 +21,7 @@ esp_now_peer_info_t peerInfo;
 
 HardwareSerial Serial485(1);
 HardwareSerial SerialPlayer(2);
-DFRobotDFPlayerMini myPlayer;
+// DFRobotDFPlayerMini myPlayer;
 
 String getValue(String data, char separator, int index) {
     int found = 0;

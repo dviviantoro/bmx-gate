@@ -26,23 +26,40 @@ void initEspNow() {
 }
 
 void initPlayer() {
+    mp3_set_serial(SerialPlayer);
+    mp3_set_volume(10);
+
     if (!myPlayer.begin(SerialPlayer, /*isACK = */true, /*doReset = */true)) {
         Serial.println(F("Unable to begin:"));
         Serial.println(F("1. Please recheck the connection!"));
         Serial.println(F("2. Please insert the SD card!"));
         while(true);
     }
-    Serial.println(F("DFPlayer Mini online."));
-
+    
     myPlayer.setTimeOut(500);
     myPlayer.volume(10);
+    myPlayer.outputDevice(DFPLAYER_DEVICE_SD);
+    Serial.println(F("DFPlayer Mini online."));
 }
 
 void setup() {
     initBoard();
+    Serial.println("disini1");
     initPlayer();
     initEspNow();
     digitalWrite(SWITCH, HIGH);
+    // myPlayer.play(1);
+    // Serial.println("disini2");
+    // myPlayer.play(2);
+    // Serial.println("disini3");
+    // myPlayer.play(3);
+
+    Serial.println(myPlayer.readState()); //read mp3 state
+    Serial.println(myPlayer.readVolume()); //read current volume
+    Serial.println(myPlayer.readEQ()); //read EQ setting
+    Serial.println(myPlayer.readFileCounts()); //read all file counts in SD card
+    Serial.println(myPlayer.readCurrentFileNumber()); //read current play file number
+    Serial.println(myPlayer.readFileCountsInFolder(3)); //read file counts in folder SD:/03
 }
 
 void loop() {

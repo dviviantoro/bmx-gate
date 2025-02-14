@@ -14,13 +14,10 @@
 // #define CANBUS_CS   7
 // #define CANBUS_INT  8
 
-#define PLAYER_TX   9
-#define PLAYER_RX   10
-
-// #define NEO_PIN    11
-#define BUTTON      12
-
-#define LED_INDICATOR   13
+#define PLAYER_TX   13
+#define PLAYER_RX   12
+#define BUTTON      14
+#define LED_INDICATOR   15
 
 #define MODBUS_COM
 // #define CANBUS_COM
