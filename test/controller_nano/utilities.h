@@ -2,8 +2,8 @@
 #define BUTTON_PIN 3
 #define SWITCH_PIN 4
 
-#define TX_ESP01 8
-#define RX_ESP01 7
+#define TX_ESP01 7
+#define RX_ESP01 8
 #define TX_PLAYER 9
 #define RX_PLAYER 10
 #define TX_485 11

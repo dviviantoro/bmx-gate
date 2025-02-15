@@ -6,6 +6,7 @@
 #define DEVICE_ID "bmx_gate_1"
 
 unsigned long previousMillis = 0;
+const long interval = 1000;
 const int resetInterval = 5000;
 bool state = false;
 
@@ -33,13 +34,16 @@ void OnDataRecv(uint8_t * mac, uint8_t *incomingData, uint8_t len) {
 
     String device = getValue(buffStr, ',', 0);
     if (device == DEVICE_ID) {
-        state = getValue(buffStr, ',', 1) == "1";
+        if (getValue(buffStr, ',', 1) == "1") {
+            Serial.println("lamp device triggered");
+            lightsUp();
+            state = true;
+        }
     }
 
     Serial.println(buffStr);
-    if (state == true) {
-        lightsUp();
-    }
+    Serial.println(device);
+    Serial.println(getValue(buffStr, ',', 1));
 }
 
 void initEspNow() {
@@ -66,6 +70,12 @@ void setup() {
 
 void loop() {
     unsigned long currentMillis = millis();
+
+    if (currentMillis - previousMillis >= interval) {
+        previousMillis = currentMillis;
+        Serial.println("still alive now");
+    }
+
     if (state == true) {
         if (currentMillis - previousMillis >= resetInterval) {
             lightsDown();
