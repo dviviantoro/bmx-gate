@@ -24,7 +24,7 @@ void testNeoPixel() {
 
 void setNeoPixel(int segmnet, String color) {
     int numLED = 16;
-    int edgeLED = LED_COUNT / segmnet;
+    int edgeLED = numLED * segmnet;
 
     for(int i = edgeLED - numLED; i < edgeLED; i ++) {
         if (color == "clear") {
@@ -34,8 +34,24 @@ void setNeoPixel(int segmnet, String color) {
         } else if (color == "yellow") {
             strip.setPixelColor(i, 255, 255, 0);
         } else if (color == "green") {
-            strip.setPixelColor(i, 0, 0, 255);
+            strip.setPixelColor(i, 0, 255, 0);
         }
         strip.show();
+    }
+}
+
+void lightsUp() {
+    setNeoPixel(1, "red");
+    delay(100);
+    setNeoPixel(2, "yellow");
+    delay(100);
+    setNeoPixel(3, "yellow");
+    delay(100);
+    setNeoPixel(4, "green");
+}
+
+void lightsDown() {
+    for (int i=1; i<=4; i++ ) {
+        setNeoPixel(i, "clear");
     }
 }

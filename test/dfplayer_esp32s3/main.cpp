@@ -13,11 +13,14 @@ void setup() {
     mp3.initialize();
     delay(1000);
     Serial.println("playing");
-    mp3.playTrackNumber(1, 30);
+    mp3.playTrackNumber(2, 30);
+    mp3.playTrackNumber(3, 30);
 }
 
 void loop() {
     mp3.serialPrintStatus(MP3_ALL_MESSAGE);
+    mp3.playTrackNumber(2, 30);
+    mp3.playTrackNumber(3, 30);
     Serial.println("hallo");
 }
 
