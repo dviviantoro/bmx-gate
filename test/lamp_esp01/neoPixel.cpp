@@ -15,11 +15,17 @@ void testNeoPixel() {
     strip.clear();
     delay(500);
     for(int i=0; i<LED_COUNT; i++) {
-        Serial.println(i);
-        strip.setPixelColor(i, 0, 255, 0);
+        int red = random(0, 256);
+        int green = random(0, 256);
+        int blue = random(0, 256);
+        
+        strip.setPixelColor(i, red, green, blue);
+        // strip.setPixelColor(i, 0, 255, 0);
         strip.show();
-        delay(500);
+        delay(50);
     }
+    // strip.clear();
+    lightsDown();
 }
 
 void setNeoPixel(int segmnet, String color) {

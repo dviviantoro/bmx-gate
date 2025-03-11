@@ -3,9 +3,11 @@
 #include <espnow.h>
 #include <neoPixel.h>
 
-#define DEVICE_ID "bmx_gate_1"
+// #define DEVICE_ID "bmx_gate_1"
+#define DEVICE_ID "bmx_gate_2"
 
 unsigned long previousMillis = 0;
+unsigned long previousMillisReset = 0;
 const long interval = 1000;
 const int resetInterval = 5000;
 bool state = false;
@@ -33,17 +35,19 @@ void OnDataRecv(uint8_t * mac, uint8_t *incomingData, uint8_t len) {
     String buffStr = String(buff);
 
     String device = getValue(buffStr, ',', 0);
+    int message = getValue(buffStr, ',', 1).toInt();
     if (device == DEVICE_ID) {
-        if (getValue(buffStr, ',', 1) == "1") {
+        if (message == 1) {
             Serial.println("lamp device triggered");
             lightsUp();
             state = true;
+            previousMillisReset = millis();
         }
     }
 
     Serial.println(buffStr);
     Serial.println(device);
-    Serial.println(getValue(buffStr, ',', 1));
+    Serial.println(message);
 }
 
 void initEspNow() {
@@ -66,6 +70,7 @@ void setup() {
 
     initEspNow();
     initNeoPixel();
+    testNeoPixel();
 }
 
 void loop() {
@@ -75,9 +80,10 @@ void loop() {
         previousMillis = currentMillis;
         Serial.println("still alive now");
     }
-
+    
     if (state == true) {
-        if (currentMillis - previousMillis >= resetInterval) {
+        if (currentMillis - previousMillisReset >= resetInterval) {
+            Serial.println("Lights will down");
             lightsDown();
             state = false;
         }

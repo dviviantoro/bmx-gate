@@ -1,13 +1,14 @@
-#include "SoftwareSerial.h"
 #include "DFRobotDFPlayerMini.h"
 
 #define MP3_ERROR_ONLY 1
 #define MP3_ALL_MESSAGE 2
 
+HardwareSerial playerSerial(1);
+
 class MP3Player
 {
 private:
-    SoftwareSerial *mySoftwareSerial;
+    // SoftwareSerial *mySoftwareSerial;
     void statusOnSerial(uint8_t type, int value);
     void waitPlayIsTerminated(void);
     int p_RX;
@@ -35,12 +36,15 @@ MP3Player::~MP3Player()
 
 void MP3Player::initialize(void)
 {
-    mySoftwareSerial = new SoftwareSerial(p_RX, p_TX);
+    // mySoftwareSerial = new SoftwareSerial(p_RX, p_TX);
 
-    mySoftwareSerial->begin(9600);
-    Serial.println(F("Initializing MP3Player ..."));
+    // mySoftwareSerial->begin(9600);
+    // Serial.println(F("Initializing MP3Player ..."));
 
-    if (!player.begin(*mySoftwareSerial,true,false))
+    playerSerial.begin(9600, SERIAL_8N1, 12, 13);
+
+    // if (!player.begin(*mySoftwareSerial,true,false))
+    if (!player.begin(playerSerial,true,false))
     {
         Serial.println(F("Unable to begin:"));
         Serial.println(F("1.Please recheck the connection!"));
